@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Pet - Pet Adoption System</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="navbar">
+    <strong>Pet Adoption System</strong>
+    <div>
+      <a href="/pets">Pets</a>
+      <a href="/pets/create">Add Pet</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="panel">
+      <h1>Edit Pet</h1>
+
+      <form method="POST" action="/pets/<%= pet.id %>?_method=PUT">
+        <label>Pet Name</label>
+        <input type="text" name="name" value="<%= pet.name %>" required>
+
+        <label>Type</label>
+        <input type="text" name="type" value="<%= pet.type %>" required>
+
+        <label>Breed</label>
+        <input type="text" name="breed" value="<%= pet.breed || '' %>">
+
+        <label>Age</label>
+        <input type="number" name="age" value="<%= pet.age || '' %>" min="0">
+
+        <label>Gender</label>
+        <select name="gender" required>
+          <option value="Male" <%= pet.gender === 'Male' ? 'selected' : '' %>>Male</option>
+          <option value="Female" <%= pet.gender === 'Female' ? 'selected' : '' %>>Female</option>
+        </select>
+
+        <label>Description</label>
+        <textarea name="description"><%= pet.description || '' %></textarea>
+
+        <label>Status</label>
+        <select name="status" required>
+          <option value="Available" <%= pet.status === 'Available' ? 'selected' : '' %>>Available</option>
+          <option value="Adopted" <%= pet.status === 'Adopted' ? 'selected' : '' %>>Adopted</option>
+        </select>
+
+        <label>Adopter Name</label>
+        <input type="text" name="adopter_name" value="<%= pet.adopter_name || '' %>">
+
+        <label>Adopter Contact</label>
+        <input type="text" name="adopter_contact" value="<%= pet.adopter_contact || '' %>">
+
+        <button class="btn" type="submit">Update Pet</button>
+        <a class="btn btn-light" href="/pets">Cancel</a>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

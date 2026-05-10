@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pet Adoption System</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="navbar">
+    <strong>Pet Adoption System</strong>
+    <div>
+      <a href="/pets">Pets</a>
+      <a href="/pets/create">Add Pet</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="panel">
+      <h1>Pet List</h1>
+
+      <form method="GET" action="/pets">
+        <input type="text" name="search" placeholder="Search by name, type, breed, or status" value="<%= search %>">
+        <button class="btn" type="submit">Search</button>
+        <a class="btn btn-light" href="/pets">Reset</a>
+        <a class="btn" href="/pets/create">Add New Pet</a>
+      </form>
+
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Breed</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+
+        <% if (pets.length === 0) { %>
+          <tr>
+            <td colspan="8">No pets found.</td>
+          </tr>
+        <% } %>
+
+        <% pets.forEach(function(pet) { %>
+          <tr>
+            <td><%= pet.id %></td>
+            <td><%= pet.name %></td>
+            <td><%= pet.type %></td>
+            <td><%= pet.breed || 'N/A' %></td>
+            <td><%= pet.age || 'N/A' %></td>
+            <td><%= pet.gender %></td>
+            <td>
+              <span class="badge <%= pet.status === 'Adopted' ? 'adopted' : 'available' %>">
+                <%= pet.status %>
+              </span>
+            </td>
+            <td>
+              <div class="actions">
+                <a class="btn btn-light" href="/pets/<%= pet.id %>">View</a>
+                <a class="btn btn-warning" href="/pets/<%= pet.id %>/edit">Edit</a>
+
+                <form method="POST" action="/pets/<%= pet.id %>?_method=DELETE">
+                  <button class="btn btn-danger" onclick="return confirm('Delete this pet?')">Delete</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        <% }) %>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

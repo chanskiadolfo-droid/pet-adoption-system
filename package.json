@@ -1,0 +1,21 @@
+{
+  "name": "pet-adoption-system",
+  "version": "1.0.0",
+  "description": "Pet Adoption System using Node.js, Express, EJS, Aiven PostgreSQL, and Render",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "init-db": "node init-db.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "method-override": "^3.0.0",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= pet.name %> - Pet Adoption System</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="navbar">
+    <strong>Pet Adoption System</strong>
+    <div>
+      <a href="/pets">Pets</a>
+      <a href="/pets/create">Add Pet</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="panel">
+      <h1><%= pet.name %></h1>
+
+      <div class="grid">
+        <div>
+          <p><strong>Type:</strong> <%= pet.type %></p>
+          <p><strong>Breed:</strong> <%= pet.breed || 'N/A' %></p>
+          <p><strong>Age:</strong> <%= pet.age || 'N/A' %></p>
+          <p><strong>Gender:</strong> <%= pet.gender %></p>
+          <p>
+            <strong>Status:</strong>
+            <span class="badge <%= pet.status === 'Adopted' ? 'adopted' : 'available' %>">
+              <%= pet.status %>
+            </span>
+          </p>
+          <p><strong>Description:</strong> <%= pet.description || 'No description provided.' %></p>
+
+          <% if (pet.status === 'Adopted') { %>
+            <p><strong>Adopter:</strong> <%= pet.adopter_name || 'N/A' %></p>
+            <p><strong>Adopter Contact:</strong> <%= pet.adopter_contact || 'N/A' %></p>
+          <% } %>
+        </div>
+
+        <div>
+          <% if (pet.status === 'Available') { %>
+            <h2>Adopt This Pet</h2>
+
+            <form method="POST" action="/pets/<%= pet.id %>/adopt">
+              <label>Adopter Name</label>
+              <input type="text" name="adopter_name" required>
+
+              <label>Adopter Contact</label>
+              <input type="text" name="adopter_contact" required>
+
+              <button class="btn" type="submit">Mark as Adopted</button>
+            </form>
+          <% } else { %>
+            <h2>Pet Already Adopted</h2>
+
+            <form method="POST" action="/pets/<%= pet.id %>/available">
+              <button class="btn btn-warning" type="submit">Mark as Available Again</button>
+            </form>
+          <% } %>
+        </div>
+      </div>
+
+      <br>
+
+      <a class="btn btn-warning" href="/pets/<%= pet.id %>/edit">Edit</a>
+      <a class="btn btn-light" href="/pets">Back</a>
+    </div>
+  </div>
+</body>
+</html>

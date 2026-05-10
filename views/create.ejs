@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Pet - Pet Adoption System</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="navbar">
+    <strong>Pet Adoption System</strong>
+    <div>
+      <a href="/pets">Pets</a>
+      <a href="/pets/create">Add Pet</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="panel">
+      <h1>Add New Pet</h1>
+
+      <form method="POST" action="/pets">
+        <label>Pet Name</label>
+        <input type="text" name="name" required>
+
+        <label>Type</label>
+        <input type="text" name="type" placeholder="Dog, Cat, Rabbit, etc." required>
+
+        <label>Breed</label>
+        <input type="text" name="breed">
+
+        <label>Age</label>
+        <input type="number" name="age" min="0">
+
+        <label>Gender</label>
+        <select name="gender" required>
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+
+        <label>Description</label>
+        <textarea name="description"></textarea>
+
+        <button class="btn" type="submit">Save Pet</button>
+        <a class="btn btn-light" href="/pets">Cancel</a>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #fff7ed, #ecfeff, #f0fdf4);
+  color: #1f2937;
+  min-height: 100vh;
+}
+
+.navbar {
+  background: #0f766e;
+  color: white;
+  padding: 18px 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin-left: 16px;
+  font-weight: bold;
+}
+
+.container {
+  width: 92%;
+  max-width: 1150px;
+  margin: 35px auto;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.96);
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(15, 118, 110, 0.18);
+}
+
+h1, h2 {
+  margin-top: 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 9px 15px;
+  border-radius: 8px;
+  background: #0f766e;
+  color: white;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-light {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.btn-danger {
+  background: #dc2626;
+}
+
+.btn-warning {
+  background: #f59e0b;
+  color: #111827;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 11px;
+  margin: 8px 0 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+  margin-top: 18px;
+}
+
+th, td {
+  padding: 13px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #ccfbf1;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.available {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.adopted {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 750px) {
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  table {
+    font-size: 13px;
+  }
+}
