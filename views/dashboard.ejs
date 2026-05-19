@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Pet Adoption System</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <%- include('partials/nav', { user }) %>
+
+  <main class="container">
+    <section class="page-header">
+      <div>
+        <p class="eyebrow">Pet Adoption System</p>
+        <h1>Dashboard</h1>
+        <p>Track shelter pets, adoption progress, and recent records in one organized workspace.</p>
+      </div>
+      <a class="btn" href="/pets/create">Add Pet</a>
+    </section>
+
+    <section class="stats-grid">
+      <article class="stat-card">
+        <span>Total Pets</span>
+        <strong><%= stats.totalPets %></strong>
+      </article>
+      <article class="stat-card">
+        <span>Available</span>
+        <strong><%= stats.availablePets %></strong>
+      </article>
+      <article class="stat-card">
+        <span>Adopted</span>
+        <strong><%= stats.adoptedPets %></strong>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <div>
+          <h2>Recent Pet Records</h2>
+          <p class="muted">Newest pets added to the adoption database.</p>
+        </div>
+        <a class="btn btn-light" href="/pets">View All</a>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Species</th>
+              <th>Breed</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (stats.recentPets.length === 0) { %>
+              <tr>
+                <td colspan="5" class="empty">No pet records yet.</td>
+              </tr>
+            <% } %>
+
+            <% stats.recentPets.forEach(function(pet) { %>
+              <tr>
+                <td><strong><%= pet.name %></strong></td>
+                <td><%= pet.species %></td>
+                <td><%= pet.breed || 'N/A' %></td>
+                <td><span class="badge <%= pet.status.toLowerCase() %>"><%= pet.status %></span></td>
+                <td><a class="btn btn-small btn-light" href="/pets/<%= pet.id %>">Open</a></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

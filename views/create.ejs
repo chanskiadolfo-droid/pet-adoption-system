@@ -1,49 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Pet - Pet Adoption System</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div class="navbar">
-    <strong>Pet Adoption System</strong>
-    <div>
-      <a href="/pets">Pets</a>
-      <a href="/pets/create">Add Pet</a>
-    </div>
-  </div>
+  <%- include('partials/nav', { user }) %>
 
-  <div class="container">
-    <div class="panel">
-      <h1>Add New Pet</h1>
+  <main class="container narrow">
+    <section class="page-header">
+      <div>
+        <p class="eyebrow">New Record</p>
+        <h1>Add Pet</h1>
+        <p>Register a pet that is ready for adoption.</p>
+      </div>
+    </section>
 
-      <form method="POST" action="/pets">
-        <label>Pet Name</label>
-        <input type="text" name="name" required>
-
-        <label>Type</label>
-        <input type="text" name="type" placeholder="Dog, Cat, Rabbit, etc." required>
-
-        <label>Breed</label>
-        <input type="text" name="breed">
-
-        <label>Age</label>
-        <input type="number" name="age" min="0">
-
-        <label>Gender</label>
-        <select name="gender" required>
-          <option value="">Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
+    <section class="panel">
+      <form method="POST" action="/pets" class="record-form">
+        <div class="form-grid">
+          <div>
+            <label>Pet Name</label>
+            <input type="text" name="name" required>
+          </div>
+          <div>
+            <label>Species</label>
+            <input type="text" name="species" placeholder="Dog, Cat, Rabbit" required>
+          </div>
+          <div>
+            <label>Breed</label>
+            <input type="text" name="breed">
+          </div>
+          <div>
+            <label>Age</label>
+            <input type="number" name="age" min="0">
+          </div>
+          <div>
+            <label>Gender</label>
+            <select name="gender" required>
+              <option value="">Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div>
+            <label>Size</label>
+            <select name="size" required>
+              <option value="Small">Small</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Large">Large</option>
+            </select>
+          </div>
+          <div>
+            <label>Color</label>
+            <input type="text" name="color">
+          </div>
+          <div>
+            <label>Health Status</label>
+            <input type="text" name="health_status" placeholder="Vaccinated, dewormed, healthy">
+          </div>
+        </div>
 
         <label>Description</label>
-        <textarea name="description"></textarea>
+        <textarea name="description" placeholder="Personality, rescue notes, special care needs"></textarea>
 
-        <button class="btn" type="submit">Save Pet</button>
-        <a class="btn btn-light" href="/pets">Cancel</a>
+        <div class="form-actions">
+          <button class="btn" type="submit">Save Pet</button>
+          <a class="btn btn-light" href="/pets">Cancel</a>
+        </div>
       </form>
-    </div>
-  </div>
+    </section>
+  </main>
 </body>
 </html>

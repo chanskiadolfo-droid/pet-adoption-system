@@ -1,74 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Pet Adoption System</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Records - Pet Adoption System</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div class="navbar">
-    <strong>Pet Adoption System</strong>
-    <div>
-      <a href="/pets">Pets</a>
-      <a href="/pets/create">Add Pet</a>
-    </div>
-  </div>
+  <%- include('partials/nav', { user }) %>
 
-  <div class="container">
-    <div class="panel">
-      <h1>Pet List</h1>
+  <main class="container">
+    <section class="page-header">
+      <div>
+        <p class="eyebrow">CRUD Management</p>
+        <h1>Pet Records</h1>
+        <p>Add, view, update, delete, and mark pets as adopted.</p>
+      </div>
+      <a class="btn" href="/pets/create">Add Pet</a>
+    </section>
 
-      <form method="GET" action="/pets">
-        <input type="text" name="search" placeholder="Search by name, type, breed, or status" value="<%= search %>">
+    <section class="panel">
+      <form class="filter-bar" method="GET" action="/pets">
+        <input type="text" name="search" placeholder="Search name, species, breed, or color" value="<%= search %>">
+        <select name="status">
+          <option value="" <%= status === '' ? 'selected' : '' %>>All Status</option>
+          <option value="Available" <%= status === 'Available' ? 'selected' : '' %>>Available</option>
+          <option value="Adopted" <%= status === 'Adopted' ? 'selected' : '' %>>Adopted</option>
+        </select>
         <button class="btn" type="submit">Search</button>
         <a class="btn btn-light" href="/pets">Reset</a>
-        <a class="btn" href="/pets/create">Add New Pet</a>
       </form>
 
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Breed</th>
-          <th>Age</th>
-          <th>Gender</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Pet</th>
+              <th>Species</th>
+              <th>Breed</th>
+              <th>Age</th>
+              <th>Gender</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (pets.length === 0) { %>
+              <tr>
+                <td colspan="8" class="empty">No pet records found.</td>
+              </tr>
+            <% } %>
 
-        <% if (pets.length === 0) { %>
-          <tr>
-            <td colspan="8">No pets found.</td>
-          </tr>
-        <% } %>
+            <% pets.forEach(function(pet) { %>
+              <tr>
+                <td>#<%= pet.id %></td>
+                <td>
+                  <strong><%= pet.name %></strong>
+                  <span class="subtext"><%= pet.color || 'Color not listed' %></span>
+                </td>
+                <td><%= pet.species %></td>
+                <td><%= pet.breed || 'N/A' %></td>
+                <td><%= pet.age !== null ? pet.age : 'N/A' %></td>
+                <td><%= pet.gender %></td>
+                <td><span class="badge <%= pet.status.toLowerCase() %>"><%= pet.status %></span></td>
+                <td>
+                  <div class="actions">
+                    <a class="btn btn-small btn-light" href="/pets/<%= pet.id %>">View</a>
+                    <a class="btn btn-small btn-warning" href="/pets/<%= pet.id %>/edit">Edit</a>
 
-        <% pets.forEach(function(pet) { %>
-          <tr>
-            <td><%= pet.id %></td>
-            <td><%= pet.name %></td>
-            <td><%= pet.type %></td>
-            <td><%= pet.breed || 'N/A' %></td>
-            <td><%= pet.age || 'N/A' %></td>
-            <td><%= pet.gender %></td>
-            <td>
-              <span class="badge <%= pet.status === 'Adopted' ? 'adopted' : 'available' %>">
-                <%= pet.status %>
-              </span>
-            </td>
-            <td>
-              <div class="actions">
-                <a class="btn btn-light" href="/pets/<%= pet.id %>">View</a>
-                <a class="btn btn-warning" href="/pets/<%= pet.id %>/edit">Edit</a>
-
-                <form method="POST" action="/pets/<%= pet.id %>?_method=DELETE">
-                  <button class="btn btn-danger" onclick="return confirm('Delete this pet?')">Delete</button>
-                </form>
-              </div>
-            </td>
-          </tr>
-        <% }) %>
-      </table>
-    </div>
-  </div>
+                    <% if (user.role === 'admin') { %>
+                      <form method="POST" action="/pets/<%= pet.id %>?_method=DELETE">
+                        <button class="btn btn-small btn-danger" onclick="return confirm('Delete this pet record?')" type="submit">Delete</button>
+                      </form>
+                    <% } %>
+                  </div>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
