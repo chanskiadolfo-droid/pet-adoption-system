@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const db = require('../config/db');
+const db = require('../db');
 
 const router = express.Router();
 
@@ -13,8 +13,8 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const [rows] = await db.execute('SELECT * FROM admins WHERE email = ?', [email]);
-    const admin = rows[0];
+    const result = await db.query('SELECT * FROM admins WHERE email = $1', [email]);
+    const admin = result.rows[0];
 
     if (!admin) {
       req.flash('error', 'Invalid email or password.');
@@ -22,6 +22,7 @@ router.post('/login', async (req, res) => {
     }
 
     const validPassword = await bcrypt.compare(password, admin.password_hash);
+
     if (!validPassword) {
       req.flash('error', 'Invalid email or password.');
       return res.redirect('/login');
@@ -38,7 +39,7 @@ router.post('/login', async (req, res) => {
     return res.redirect('/pets');
   } catch (error) {
     console.error(error);
-    req.flash('error', 'Login failed. Please check the server/database connection.');
+    req.flash('error', 'Login failed. Please check the database connection.');
     return res.redirect('/login');
   }
 });
