@@ -1,43 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Pet Adoption System</title>
-  <link rel="stylesheet" href="/style.css">
-</head>
-<body class="login-page">
-  <main class="login-shell">
-    <section class="login-brand">
-      <p class="eyebrow">Shelter records portal</p>
-      <h1>Pet Adoption System</h1>
-      <p>Manage available pets, update adoption status, and keep adopter records organized for shelter staff.</p>
-    </section>
-
-    <section class="login-card">
-      <h2>Staff Login</h2>
-      <p class="muted">Only authorized admin and staff users can access the system.</p>
-
-      <% if (error) { %>
-        <div class="alert"><%= error %></div>
-      <% } %>
-
-      <form method="POST" action="/login">
-        <label>Username</label>
-        <input type="text" name="username" placeholder="admin or staff" required>
-
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Enter password" required>
-
-        <button class="btn btn-block" type="submit">Sign In</button>
-      </form>
-
-      <div class="credential-box">
-        <strong>Demo accounts</strong>
-        <span>Admin: admin / admin123</span>
-        <span>Staff: staff / staff123</span>
-      </div>
-    </section>
-  </main>
-</body>
-</html>
+<section class="login-shell">
+  <form class="panel login-panel" action="/login" method="POST">
+    <h1>Admin Login</h1>
+    <p>Manage pets, availability, and adoption records.</p>
+    <label>Email</label>
+    <input type="email" name="email" placeholder="admin@example.com" required>
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Enter password" required>
+    <button type="submit">Login</button>
+  </form>
+</section>
